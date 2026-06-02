@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mahesh Chukka</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet" />
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --bg: #0d0d0d;
+  --surface: #161616;
+  --surface2: #1f1f1f;
+  --border: #2a2a2a;
+  --accent: #e8c97a;
+  --accent2: #c47f3b;
+  --text: #f0ece3;
+  --muted: #777;
+}
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 52px 20px 80px;
+  position: relative;
+  overflow-x: hidden;
+}
+body::before {
+  content: '';
+  position: fixed;
+  top: -180px; left: 50%;
+  transform: translateX(-50%);
+  width: 560px; height: 560px;
+  background: radial-gradient(circle, rgba(196,127,59,0.10) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.container {
+  width: 100%; max-width: 480px;
+  position: relative; z-index: 1;
+}
+
+/* Profile */
+.profile {
+  text-align: center;
+  margin-bottom: 36px;
+  animation: fadeUp 0.5s ease both;
+}
+.avatar {
+  width: 90px; height: 90px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #b5720f, #e8c97a);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 30px; letter-spacing: 1px;
+  color: #0d0d0d;
+  margin: 0 auto 18px;
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px #c47f3b55;
+}
+.name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 34px; letter-spacing: 2px;
+  color: var(--text); line-height: 1;
+  margin-bottom: 10px;
+}
+.bio {
+  font-size: 13px; color: var(--muted);
+  font-weight: 300; line-height: 1.7;
+  max-width: 300px; margin: 0 auto;
+}
+.bio b { color: var(--accent); font-weight: 500; }
+
+/* Section label */
+.section-label {
+  font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+  color: var(--muted); margin: 24px 0 10px 2px;
+  animation: fadeUp 0.5s ease both;
+}
+
+/* Links */
+.links { display: flex; flex-direction: column; gap: 9px; }
+
+.link-item { animation: fadeUp 0.5s ease both; }
+.link-item:nth-child(1){animation-delay:.04s}
+.link-item:nth-child(2){animation-delay:.08s}
+.link-item:nth-child(3){animation-delay:.12s}
+.link-item:nth-child(4){animation-delay:.16s}
+.link-item:nth-child(5){animation-delay:.20s}
+.link-item:nth-child(6){animation-delay:.24s}
+.link-item:nth-child(7){animation-delay:.28s}
+
+.link-btn {
+  display: flex; align-items: center; gap: 13px;
+  width: 100%; padding: 14px 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  color: var(--text); text-decoration: none;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14px; font-weight: 500;
+  cursor: pointer;
+  transition: background 0.18s, border-color 0.18s, transform 0.12s;
+  text-align: left;
+}
+.link-btn:hover {
+  background: var(--surface2);
+  border-color: #3a3a3a;
+  transform: translateY(-1px);
+}
+.link-btn .icon {
+  width: 38px; height: 38px;
+  border-radius: 10px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px; flex-shrink: 0;
+  transition: border-color 0.18s;
+}
+.link-btn:hover .icon { border-color: #3d3d3d; }
+.label { flex: 1; }
+.label small { display: block; font-size: 11px; color: var(--muted); font-weight: 300; margin-top: 1px; }
+.arrow { color: var(--muted); font-size: 12px; transition: transform 0.15s, color 0.15s; }
+.link-btn:hover .arrow { transform: translateX(3px); color: var(--accent); }
+
+/* Podcast — special gold accent */
+.podcast-wrap { position: relative; }
+.expand-btn {
+  background: linear-gradient(135deg, var(--surface), rgba(196,127,59,0.05));
+  border-color: rgba(196,127,59,0.28);
+}
+.expand-btn:hover { border-color: rgba(196,127,59,0.5); }
+.chevron {
+  color: var(--accent); font-size: 11px;
+  transition: transform 0.28s;
+}
+.expand-btn.open { border-bottom-left-radius: 5px; border-bottom-right-radius: 5px; border-bottom-color: transparent; }
+.expand-btn.open .chevron { transform: rotate(180deg); }
+
+.sub-panel {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.32s cubic-bezier(0.4,0,0.2,1);
+  background: rgba(196,127,59,0.04);
+  border: 1px solid rgba(196,127,59,0.28);
+  border-top: none;
+  border-bottom-left-radius: 14px;
+  border-bottom-right-radius: 14px;
+}
+.sub-panel.open { max-height: 300px; }
+
+.sub-link {
+  display: flex; align-items: center; gap: 11px;
+  padding: 12px 18px;
+  color: var(--text); text-decoration: none;
+  font-size: 13px; font-weight: 400;
+  transition: background 0.12s;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.sub-link:last-child { border-bottom: none; }
+.sub-link:hover { background: rgba(232,201,122,0.06); }
+.plat-icon {
+  width: 28px; height: 28px; border-radius: 7px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 14px; flex-shrink: 0;
+}
+.s-spotify  { background: rgba(30,215,96,0.12); }
+.s-apple    { background: rgba(252,60,68,0.10); }
+.s-amazon   { background: rgba(255,153,0,0.12); }
+.s-youtube  { background: rgba(255,0,0,0.11); }
+.plat-label { flex: 1; }
+.plat-label small { display: block; font-size: 10px; color: var(--muted); }
+.ext { font-size: 10px; color: var(--muted); }
+
+/* Apps — subtle teal accent */
+.apps-btn {
+  border-color: rgba(91,190,160,0.22);
+  background: linear-gradient(135deg, var(--surface), rgba(91,190,160,0.04));
+}
+.apps-btn:hover { border-color: rgba(91,190,160,0.42); }
+
+/* Divider */
+.divider {
+  display: flex; align-items: center; gap: 10px;
+  margin: 4px 0;
+  animation: fadeUp 0.5s ease both;
+}
+.divider span { font-size: 10px; color: var(--muted); letter-spacing: 1.5px; text-transform: uppercase; white-space: nowrap; }
+.divider::before, .divider::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+/* Footer */
+.footer {
+  text-align: center; margin-top: 40px;
+  font-size: 11px; color: #444;
+  animation: fadeUp 0.5s 0.35s ease both;
+}
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+  <div class="profile">
+    <div class="avatar">MC</div>
+    <div class="name">Mahesh Chukka</div>
+    <p class="bio">
+      Cooking · Dancing · Travel · Fashion<br>
+      Atlanta-based &amp; living out loud.<br>
+      <b>Also building things in tech ✦</b>
+    </p>
+  </div>
+
+  <div class="links">
+
+    <!-- 📸 Instagram -->
+    <a href="https://instagram.com/YOUR_HANDLE" target="_blank" class="link-btn link-item">
+      <span class="icon">📸</span>
+      <span class="label">Instagram<small>Daily life, food &amp; travels</small></span>
+      <span class="arrow">→</span>
+    </a>
+
+    <!-- 🎵 TikTok / Reels -->
+    <a href="https://tiktok.com/@YOUR_HANDLE" target="_blank" class="link-btn link-item">
+      <span class="icon">🎵</span>
+      <span class="label">TikTok<small>Dance &amp; short videos</small></span>
+      <span class="arrow">→</span>
+    </a>
+
+    <!-- ✈️ Travel / Blog -->
+    <a href="https://YOUR_BLOG_URL" target="_blank" class="link-btn link-item">
+      <span class="icon">✈️</span>
+      <span class="label">Travel Diaries<small>Places I've explored</small></span>
+      <span class="arrow">→</span>
+    </a>
+
+    <div class="divider link-item"><span>Also me</span></div>
+
+    <!-- 🎙️ Podcast — expandable -->
+    <div class="link-item podcast-wrap">
+      <button class="link-btn expand-btn" onclick="toggle('podcast-sub', this)" aria-expanded="false">
+        <span class="icon">🎙️</span>
+        <span class="label">My Podcast<small>Tech, AI &amp; building in public</small></span>
+        <span class="chevron">▼</span>
+      </button>
+      <div class="sub-panel" id="podcast-sub">
+        <a href="https://open.spotify.com/show/YOUR_ID" target="_blank" class="sub-link">
+          <span class="plat-icon s-spotify">🎵</span>
+          <span class="plat-label">Spotify<small>Listen now</small></span>
+          <span class="ext">↗</span>
+        </a>
+        <a href="https://podcasts.apple.com/us/podcast/YOUR_ID" target="_blank" class="sub-link">
+          <span class="plat-icon s-apple">🎧</span>
+          <span class="plat-label">Apple Podcasts<small>Subscribe</small></span>
+          <span class="ext">↗</span>
+        </a>
+        <a href="https://music.amazon.com/podcasts/YOUR_ID" target="_blank" class="sub-link">
+          <span class="plat-icon s-amazon">📦</span>
+          <span class="plat-label">Amazon Music<small>Stream it</small></span>
+          <span class="ext">↗</span>
+        </a>
+        <a href="https://www.youtube.com/@YOUR_CHANNEL" target="_blank" class="sub-link">
+          <span class="plat-icon s-youtube">▶️</span>
+          <span class="plat-label">YouTube<small>Watch episodes</small></span>
+          <span class="ext">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <!-- 📱 Apps — expandable -->
+    <div class="link-item podcast-wrap">
+      <button class="link-btn expand-btn apps-btn" onclick="toggle('apps-sub', this)" aria-expanded="false">
+        <span class="icon">📱</span>
+        <span class="label">My Apps<small>Things I've built</small></span>
+        <span class="chevron" style="color: #5bbea0;">▼</span>
+      </button>
+      <div class="sub-panel" id="apps-sub" style="border-color: rgba(91,190,160,0.22); background: rgba(91,190,160,0.03);">
+        <a href="https://play.google.com/store/apps/details?id=YOUR_APP" target="_blank" class="sub-link">
+          <span class="plat-icon" style="background: rgba(100,210,120,0.12);">🤖</span>
+          <span class="plat-label">Google Play<small>Android app</small></span>
+          <span class="ext">↗</span>
+        </a>
+        <a href="https://apps.apple.com/app/YOUR_APP" target="_blank" class="sub-link">
+          <span class="plat-icon" style="background: rgba(140,140,255,0.12);">🍎</span>
+          <span class="plat-label">App Store<small>iOS app</small></span>
+          <span class="ext">↗</span>
+        </a>
+      </div>
+    </div>
+
+    <div class="divider link-item"><span>Connect</span></div>
+
+    <!-- 💼 LinkedIn -->
+    <a href="https://linkedin.com/in/YOUR_HANDLE" target="_blank" class="link-btn link-item">
+      <span class="icon">💼</span>
+      <span class="label">LinkedIn<small>Professional side of me</small></span>
+      <span class="arrow">→</span>
+    </a>
+
+  </div>
+
+  <div class="footer">© 2026 Mahesh Chukka · built by me 🛠️</div>
+</div>
+
+<script>
+function toggle(id, btn) {
+  const panel = document.getElementById(id);
+  const isOpen = panel.classList.toggle('open');
+  btn.classList.toggle('open', isOpen);
+  btn.setAttribute('aria-expanded', isOpen);
+  // close the other panel
+  const all = document.querySelectorAll('.sub-panel');
+  all.forEach(p => {
+    if (p.id !== id && p.classList.contains('open')) {
+      p.classList.remove('open');
+      const b = p.previousElementSibling;
+      if (b) { b.classList.remove('open'); b.setAttribute('aria-expanded', false); }
+    }
+  });
+}
+</script>
+</body>
+</html>
